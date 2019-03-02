@@ -1,14 +1,48 @@
 # Paths
-all_video_names: list/all.video
-video_path: ~/video
-downsampled_videos: ~/11775-hws/hw2_code/downsampled_videos
-surf_features: ~/11775-hws/hw2_code/surf
+all_video_names: all.video
+video_path: video
+downsampled_videos: downsampled_videos
+surf_folder: surf
+cnn_folder: cnn
+vald_folder: vlad
+captures_folder: captures
+
+train: ../all_trn.lst
+val: ../all_val.lst
+test: ../all_test_fake.lst
 
 # downsampling
 downsampling_frame_len: 60
 downsampling_frame_rate: 15
-keyframe_interval: 5
+keyframe_interval: 45
 
-# surf
+# surf feature kmeans
 hessian_threshold: 400
-kmeans_cluster_num: 256
+kmeans_cluster_num: 2000
+
+surf_select_frame_rate: 0.04
+surf_keam_feat_file: surf_kmean_feat.csv
+positive_file: ../positive.lst
+
+# surf featurizer
+surf_his_feature: surf_features.pkl
+
+# CNN feature kmeans
+img_features: image
+batch_size: 1
+img_dim: 224
+
+cnn_select_frame_rate: 1.0
+cnn_keam_feat_file: cnn_kmean_feat.csv
+
+# cnn featurizer
+cnn_his_feature: cnn_features.pkl
+
+cnn_incept_feature: cnn_incept_features.pkl
+#
+vlad_feature: vlad_features.pkl
+
+MLP_size: 2000, 1000, 100, 10
+MLP_param: mlp_parameters.mdl
+MLP_lr: 0.001
+MLP_epoch: 5
