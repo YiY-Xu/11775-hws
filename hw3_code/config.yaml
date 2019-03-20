@@ -1,0 +1,82 @@
+#Hw3
+balanced: 'true'
+factor: 2.1
+ensemble: 1
+
+#early fusion
+feature_types: cnn,mfcc,asr,soundnet,surf
+feature_dims: "1000,300,300,1401,2000"
+feature_files: cnn_features.pkl,mfcc_features_scale.pkl,asr_features.pkl,soundnet_features.pkl,surf_features.pkl
+
+# feature_types: surf
+# feature_dims: '2000'
+# feature_files: surf_features.pkl
+
+
+#later fusion
+l_surf: surf,2000,surf_features.pkl
+l_cnn: cnn,1000,cnn_features.pkl
+l_asr: asr,300,soundnet_features.pkl
+l_soundnet: soundnet,1401,soundnet_features.pkl
+l_mfcc: mfcc,300,mfcc_features.pkl
+
+later_fusion_repeat: 1
+l_feature_types: later_fusion
+l_feature_dims: "15"
+l_feature_files: later_fusion_features.pkl
+
+k_feature_types: later_fusion,cnn,soundnet,asr,mfcc,surf
+k_feature_dims: "15,1000,1401,300,300,2000"
+k_feature_files: later_fusion_features.pkl,cnn_features.pkl,soundnet_features.pkl,asr_features.pkl,mfcc_features_scale.pkl,surf_features.pkl
+k_models: SVC
+#RFC
+#MLP
+
+# Paths
+all_video_names: ../all.video
+video_path: video
+downsampled_videos: downsampled_videos
+surf_folder: surf
+cnn_folder: cnn
+vald_folder: vlad
+captures_folder: captures
+
+train: ../../all_trn.lst
+val: ../../all_val.lst
+test: ../../all_test_fake.lst
+
+# downsampling
+downsampling_frame_len: 60
+downsampling_frame_rate: 15
+keyframe_interval: 45
+
+# surf feature kmeans
+hessian_threshold: 400
+kmeans_cluster_num: 2000
+
+surf_select_frame_rate: 0.04
+surf_keam_feat_file: surf_kmean_feat.csv
+positive_file: ../positive.lst
+
+# surf featurizer
+surf_his_feature: surf_features.pkl
+
+# CNN feature kmeans
+img_features: image
+batch_size: 1
+img_dim: 224
+
+cnn_select_frame_rate: 1.0
+cnn_keam_feat_file: cnn_kmean_feat.csv
+
+# cnn featurizer
+cnn_his_feature: cnn_features.pkl
+
+cnn_incept_feature: cnn_incept_features.pkl
+#
+vlad_feature: vlad_features.pkl
+
+MLP_size: 2000, 1000, 100, 10
+MLP_param: mlp_parameters.mdl
+MLP_lr: 0.001
+MLP_epoch: 5
